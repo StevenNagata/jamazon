@@ -142,7 +142,8 @@ function createElement(tagName, attributes, children) {
 }
 
 function renderApp(state) {
-  document.body.appendChild(renderGrid(state.catalog.items))
+  var $view = document.querySelector('[data-view="' + state.view + '"]')
+  $view.appendChild(renderGrid(state.catalog.items))
 }
 
 renderApp(appState)
