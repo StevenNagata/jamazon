@@ -1,86 +1,130 @@
 var appState = {
-
-  catelog: [
-    {
-      name: 'Tin Drum With an adjustable strap and two wooden drumsticks',
-      brand: 'Schylling TD',
-      price: '$15.39',
-      src: 'https://images-na.ssl-images-amazon.com/images/I/61QFoKqP7YL._SX679_.jpg'
-    },
-    {
-      name: 'Frontman 10G Electric Guitar Amplifier',
-      brand: 'Fender',
-      price: '$59.99',
-      src: 'https://images-na.ssl-images-amazon.com/images/I/61WxwocahEL.jpg'
-    },
-    {
-      name: 'S35 Acoustic Guitar, Natural',
-      brand: 'Jasmine',
-      price: '$92.44',
-      src: 'http://www.jasmineguitars.com/pics/s35_lg.jpg'
-    },
-    {
-      name: '351 Shape Classic Picks (12 Pack) for electric guitar, acoustic guitar, mandolin, and bass',
-      brand: 'Fender',
-      price: '$5.49',
-      src: 'https://images-na.ssl-images-amazon.com/images/I/7132XMA%2BIML._SX679_.jpg'
-    },
-    {
-      name: 'Music Instrument Cables,Electric & Bass Guitar Cord&FREE Stereo Audio Adapter,10 Feet Straight 1/4 Black',
-      brand: 'SUNYIN',
-      price: '$9.99',
-      src: 'https://images-na.ssl-images-amazon.com/images/I/81H1B4C1B7L._SX679_.jpg'
-    },
-    {
-      name: 'Premier Atlantic Electric Guitar - Antique White',
-      brand: 'D\'Angelico',
-      price: '$699.99',
-      src: 'https://images.reverb.com/image/upload/s--QG6zb8n9--/a_exif,c_limit,e_unsharp_mask:80,f_auto,fl_progressive,g_south,h_620,q_90,w_620/v1527715868/hjwzufmtictsd69x54wj.jpg'
-    },
-    {
-      name: 'Drum Sticks 5A Wood Tip Drumstick, Maple, 2 Pair',
-      brand: 'ARLX',
-      price: '$8.60',
-      src: 'https://images-na.ssl-images-amazon.com/images/I/61aHKZPkw1L._SX679_.jpg'
-    },
-    {
-      name: 'Noise Killer noise gate Guitar pedal',
-      brand: 'Donner',
-      price: '$37.00',
-      src: 'https://images-na.ssl-images-amazon.com/images/I/81WFq0b1n6L._SX679_.jpg'
-    }
-  ]
+  view: 'catalog',
+  catalog: {
+    items: [
+      {
+        itemId: 1,
+        brand: 'Ludwig',
+        name: 'Black Beauty',
+        price: 749.99,
+        description: 'A snare drum for people with too many drumsticks.',
+        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        origin: 'United States',
+        imageUrl: 'https://goo.gl/ubY0QA'
+      },
+      {
+        itemId: 2,
+        name: 'Darbuka',
+        brand: 'Vatan',
+        price: 79.99,
+        description: 'A hand drum for people who like belly dancing.',
+        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        origin: 'Turkey',
+        imageUrl: 'https://n11scdn.akamaized.net/a1/450/kitap-muzik-film-oyun/telli-calgilar/imc-comlek-darbuka-vatan-ozel-dovme-vd-3024__1290705093369308.jpg'
+      },
+      {
+        itemId: 3,
+        name: 'Djembe',
+        brand: 'Remo',
+        price: 49.99,
+        description: 'A hand drum for people with dreadlocks.',
+        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        origin: 'West Africa',
+        imageUrl: 'https://goo.gl/iKtU8x'
+      },
+      {
+        itemId: 4,
+        name: 'Hi-Hats',
+        brand: 'Paiste',
+        price: 400,
+        description: 'A set of hats for people who spare no expense.',
+        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        origin: 'Switzerland',
+        imageUrl: 'https://goo.gl/LV9l8O'
+      },
+      {
+        itemId: 5,
+        name: 'Giant Step',
+        brand: 'Sonor',
+        price: 599,
+        description: 'A pedal for metal drummers with only one foot.',
+        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        origin: 'Germany',
+        imageUrl: 'https://goo.gl/zsFo1q'
+      },
+      {
+        itemId: 6,
+        name: 'Travis Barker Signature',
+        brand: 'Zildjian',
+        price: 24.99,
+        description: 'A set of drumsticks from the 90s.',
+        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        origin: 'United States',
+        imageUrl: 'https://goo.gl/Cro3tL'
+      },
+      {
+        itemId: 7,
+        name: 'Bodhran',
+        brand: 'Meinl',
+        price: 129.99,
+        description: 'A frame drum for people who like to jig.',
+        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        origin: 'Ireland',
+        imageUrl: 'https://goo.gl/YNb74O'
+      },
+      {
+        itemId: 8,
+        name: 'TR-09',
+        brand: 'Roland',
+        price: 399,
+        description: 'A drum machine for people with no desk space.',
+        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        origin: 'Japan',
+        imageUrl: 'https://goo.gl/gJYUxz'
+      }
+    ]
+  },
+  details: {
+    item: null
+  }
 }
 
 var itemsPerCol = 3
 
 function renderItem(item) {
   var $item =
-    createElement('div', { class: 'card', style: 'width: 18rem' }, [
-      createElement('img', { class: 'card-img-top', src: item.src, alt: 'Card image cap' }, []),
-      createElement('div', { class: 'card-body' }, [
-        createElement('h3', { class: 'card-title' }, [item.name]),
-        createElement('h5', { class: 'card-text' }, [item.brand]),
-        createElement('p', { class: 'card-text' }, [item.price]),
-        createElement('button', { class: 'btn btn-primary', id: 'add-to-cart' }, ['Add to Cart'])
+    createElement('div', { class: 'card border border-dark border-3', style: 'width: 18rem height:28rem' }, [
+      createElement('div', { style: 'height: 320px' }, [
+        createElement('img', { class: 'card-img-top', src: item.imageUrl, alt: 'Card image cap' }, [])
+      ]),
+      createElement('div', { style: 'height: 280px' }, [
+        createElement('div', { class: 'card-body p-1', style: 'height: 180px;' }, [
+          createElement('h3', { class: 'card-title' }, [item.name]),
+          createElement('div', { class: 'align-text-bottom' }, [
+            createElement('h5', { class: 'card-text' }, [item.brand]),
+            createElement('p', { class: 'card-text' }, ['$' + item.price])
+          ])
+        ]),
+        createElement('div', { style: 'footer' }, [
+          createElement('button', { class: 'btn bg-primary btn-lg btn-block p-3', style: 'position: absolute; height: 100px; border: solid; bottom: 0; right: 0;  left: 0', id: 'add-to-cart' }, ['Add to Cart'])
+        ])
       ])
     ])
   return $item
 }
 
 function renderGrid(gridElements) {
-  var $header = createElement('h1', { class: 'header' }, ['JAMAZON'])
+  var $header = createElement('h1', { class: 'text-center mx-auto text-primary m-3 display-1', style: 'width: 500px' }, ['JAMAZON'])
   var $container = createElement('div', { class: 'container' }, [])
   $container.appendChild($header)
   for (var j = 0; j < gridElements.length / itemsPerCol; j++) {
-    var $row = createElement('div', { class: 'row' }, [])
+    var $row = createElement('div', { class: 'row m-3', style: 'height: auto' }, [])
     for (var i = 0; i < itemsPerCol; i++) {
       if (i + (j * itemsPerCol) === gridElements.length) {
         break
       }
       var $item = gridElements[i + (j * itemsPerCol)]
-      var $column = createElement('div', { class: 'col-sm-4' }, [
-        renderItem($item)
+      var $column = createElement('div', { class: 'col-sm-4' }, [renderItem($item)
       ])
       $row.appendChild($column)
     }
@@ -106,7 +150,7 @@ function createElement(tagName, attributes, children) {
 }
 
 function renderApp(state) {
-  document.body.appendChild(renderGrid(state.catelog))
+  document.body.appendChild(renderGrid(state.catalog.items))
 }
 
 renderApp(appState)
