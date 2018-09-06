@@ -122,6 +122,31 @@ function renderGrid(gridElements) {
   return $container
 }
 
+function renderItemDescription(item) {
+  var $itemDescription =
+    createElement('div', { class: 'container my-5' }, [
+      createElement('div', { class: 'row' }, [
+        createElement('div', { class: 'card shadow-sm' }, [
+          createElement('div', { class: 'row no-gutters' }, [
+            createElement('div', { class: 'col-lg-5' }, [
+              createElement('img', { class: 'img-responsive w-100', src: item.imageUrl }, [])
+            ]),
+            createElement('div', { class: 'col' }, [
+              createElement('div', { class: 'card-body' }, [
+                createElement('h1', { class: 'card-title' }, [item.name]),
+                createElement('h4', null, ['Brand: ' + item.brand]),
+                createElement('h4', null, ['Origin: ' + item.origin]),
+                createElement('h6', null, [item.description]),
+                createElement('p', { class: 'card-text' }, ['$' + item.price])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  return $itemDescription
+}
+
 function createElement(tagName, attributes, children) {
   var $tag = document.createElement(tagName)
   for (var i in attributes) {
@@ -142,5 +167,5 @@ function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
   $view.appendChild(renderGrid(state.catalog.items))
 }
-
+console.log(renderItemDescription(appState.catalog.items[0]))
 renderApp(appState)
