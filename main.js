@@ -1,54 +1,56 @@
+var appState = {
 
-var catelog = [
-  {
-    name: '1',
-    brand: 'yo',
-    price: '$3',
-    src: 'https://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png'
-  },
-  {
-    name: '2',
-    brand: 'yo',
-    price: '$3',
-    src: 'https://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png'
-  },
-  {
-    name: '3',
-    brand: 'yo',
-    price: '$3',
-    src: 'https://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png'
-  },
-  {
-    name: '4',
-    brand: 'yo',
-    price: '$3',
-    src: 'https://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png'
-  },
-  {
-    name: '5',
-    brand: 'yo',
-    price: '$3',
-    src: 'https://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png'
-  },
-  {
-    name: '6',
-    brand: 'yo',
-    price: '$3',
-    src: 'https://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png'
-  },
-  {
-    name: '7',
-    brand: 'yo',
-    price: '$3',
-    src: 'https://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png'
-  },
-  {
-    name: '8',
-    brand: 'yo',
-    price: '$3',
-    src: 'https://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png'
-  }
-]
+  catelog: [
+    {
+      name: 'Tin Drum With an adjustable strap and two wooden drumsticks',
+      brand: 'Schylling TD',
+      price: '$15.39',
+      src: 'https://images-na.ssl-images-amazon.com/images/I/61QFoKqP7YL._SX679_.jpg'
+    },
+    {
+      name: 'Frontman 10G Electric Guitar Amplifier',
+      brand: 'Fender',
+      price: '$59.99',
+      src: 'https://images-na.ssl-images-amazon.com/images/I/61WxwocahEL.jpg'
+    },
+    {
+      name: 'S35 Acoustic Guitar, Natural',
+      brand: 'Jasmine',
+      price: '$92.44',
+      src: 'http://www.jasmineguitars.com/pics/s35_lg.jpg'
+    },
+    {
+      name: '351 Shape Classic Picks (12 Pack) for electric guitar, acoustic guitar, mandolin, and bass',
+      brand: 'Fender',
+      price: '$5.49',
+      src: 'https://images-na.ssl-images-amazon.com/images/I/7132XMA%2BIML._SX679_.jpg'
+    },
+    {
+      name: 'Music Instrument Cables,Electric & Bass Guitar Cord&FREE Stereo Audio Adapter,10 Feet Straight 1/4 Black',
+      brand: 'SUNYIN',
+      price: '$9.99',
+      src: 'https://images-na.ssl-images-amazon.com/images/I/81H1B4C1B7L._SX679_.jpg'
+    },
+    {
+      name: 'Premier Atlantic Electric Guitar - Antique White',
+      brand: 'D\'Angelico',
+      price: '$699.99',
+      src: 'https://images.reverb.com/image/upload/s--QG6zb8n9--/a_exif,c_limit,e_unsharp_mask:80,f_auto,fl_progressive,g_south,h_620,q_90,w_620/v1527715868/hjwzufmtictsd69x54wj.jpg'
+    },
+    {
+      name: 'Drum Sticks 5A Wood Tip Drumstick, Maple, 2 Pair',
+      brand: 'ARLX',
+      price: '$8.60',
+      src: 'https://images-na.ssl-images-amazon.com/images/I/61aHKZPkw1L._SX679_.jpg'
+    },
+    {
+      name: 'Noise Killer noise gate Guitar pedal',
+      brand: 'Donner',
+      price: '$37.00',
+      src: 'https://images-na.ssl-images-amazon.com/images/I/81WFq0b1n6L._SX679_.jpg'
+    }
+  ]
+}
 
 var itemsPerCol = 3
 
@@ -67,7 +69,7 @@ function renderItem(item) {
 }
 
 function renderGrid(gridElements) {
-  var $header = createElement('h1', {class: 'header'}, ['JAMAZON'])
+  var $header = createElement('h1', { class: 'header' }, ['JAMAZON'])
   var $container = createElement('div', { class: 'container' }, [])
   $container.appendChild($header)
   for (var j = 0; j < gridElements.length / itemsPerCol; j++) {
@@ -103,5 +105,8 @@ function createElement(tagName, attributes, children) {
   return $tag
 }
 
-console.log(renderGrid(catelog))
-document.body.appendChild(renderGrid(catelog))
+function renderApp(state) {
+  document.body.appendChild(renderGrid(state.catelog))
+}
+
+renderApp(appState)
