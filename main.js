@@ -92,7 +92,7 @@ var appState = {
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 25rem' }, [
-      createElement('div', {style: 'height: 18rem'}, [
+      createElement('div', { style: 'height: 18rem' }, [
         createElement('img', { class: 'card-img-top', src: item.imageUrl, alt: 'Card image cap' }, [])
       ]),
       createElement('div', null, [
@@ -114,9 +114,6 @@ function renderGrid(gridElements) {
   $container.appendChild($header)
   var $row = createElement('div', { class: 'row m-3', style: 'height: auto' }, [])
   for (var i = 0; i < gridElements.length; i++) {
-    if (i === gridElements.length) {
-      break
-    }
     var $item = gridElements[i]
     var $column = createElement('div', { class: 'col-sm-4' }, [renderItem($item)])
     $row.appendChild($column)
