@@ -147,6 +147,15 @@ function renderItemDescription(item) {
   return $itemDescription
 }
 
+function findItem(itemId, catalogList) {
+  for (var i = 0; i < catalogList.length; i++) {
+    var item = catalogList[i]
+    if (item.itemId === itemId) {
+      return item
+    }
+  }
+}
+
 function createElement(tagName, attributes, children) {
   var $tag = document.createElement(tagName)
   for (var i in attributes) {
@@ -167,5 +176,6 @@ function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
   $view.appendChild(renderGrid(state.catalog.items))
 }
+console.log(findItem(6, appState.catalog.items))
 console.log(renderItemDescription(appState.catalog.items[0]))
 renderApp(appState)
