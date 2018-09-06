@@ -117,8 +117,8 @@ function renderGrid(gridElements) {
     var $item = gridElements[i]
     var $column = createElement('div', { class: 'col-sm-4' }, [renderItem($item)])
     $row.appendChild($column)
-    $container.appendChild($row)
   }
+  $container.appendChild($row)
   return $container
 }
 
