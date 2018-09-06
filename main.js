@@ -91,7 +91,7 @@ var appState = {
 
 function renderItem(item) {
   var $item =
-    createElement('div', { class: 'card', style: 'height: 25rem' }, [
+    createElement('div', { class: 'card border p-4 mb-4', style: 'height: 25rem' }, [
       createElement('div', {style: 'height: 18rem'}, [
         createElement('img', { class: 'card-img-top', src: item.imageUrl, alt: 'Card image cap' }, [])
       ]),
