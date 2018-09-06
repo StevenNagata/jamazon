@@ -89,18 +89,16 @@ var appState = {
   }
 }
 
-var itemsPerCol = 3
-
 function renderItem(item) {
   var $item =
-    createElement('div', { class: 'card' }, [
-      createElement('div', { style: 'height: 320px' }, [
+    createElement('div', { class: 'card', style: 'height: 25rem' }, [
+      createElement('div', {style: 'height: 18rem'}, [
         createElement('img', { class: 'card-img-top', src: item.imageUrl, alt: 'Card image cap' }, [])
       ]),
-      createElement('div', { style: 'height: 200px' }, [
-        createElement('div', { class: 'card-body p-1', style: 'height: 180px;' }, [
-          createElement('h3', { class: 'card-title' }, [item.name]),
-          createElement('div', { class: 'align-text-bottom' }, [
+      createElement('div', null, [
+        createElement('div', { class: 'card-body p-1' }, [
+          createElement('h4', { class: 'card-title' }, [item.name]),
+          createElement('div', null, [
             createElement('h5', { class: 'card-text' }, [item.brand]),
             createElement('p', { class: 'card-text' }, ['$' + item.price])
           ])
@@ -111,20 +109,17 @@ function renderItem(item) {
 }
 
 function renderGrid(gridElements) {
-  var $header = createElement('h1', { class: 'text-center mx-auto text-primary m-3 display-1', style: 'width: 500px' }, ['JAMAZON'])
+  var $header = createElement('h1', { class: 'text-center mx-auto m-3 display-1', style: 'width: 500px' }, ['JAMAZON'])
   var $container = createElement('div', { class: 'container' }, [])
   $container.appendChild($header)
-  for (var j = 0; j < gridElements.length / itemsPerCol; j++) {
-    var $row = createElement('div', { class: 'row m-3', style: 'height: auto' }, [])
-    for (var i = 0; i < itemsPerCol; i++) {
-      if (i + (j * itemsPerCol) === gridElements.length) {
-        break
-      }
-      var $item = gridElements[i + (j * itemsPerCol)]
-      var $column = createElement('div', { class: 'col-sm-4' }, [renderItem($item)
-      ])
-      $row.appendChild($column)
+  var $row = createElement('div', { class: 'row m-3', style: 'height: auto' }, [])
+  for (var i = 0; i < gridElements.length; i++) {
+    if (i === gridElements.length) {
+      break
     }
+    var $item = gridElements[i]
+    var $column = createElement('div', { class: 'col-sm-4' }, [renderItem($item)])
+    $row.appendChild($column)
     $container.appendChild($row)
   }
   return $container
