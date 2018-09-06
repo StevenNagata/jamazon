@@ -93,20 +93,17 @@ var itemsPerCol = 3
 
 function renderItem(item) {
   var $item =
-    createElement('div', { class: 'card border border-dark border-3', style: 'width: 18rem height:28rem' }, [
+    createElement('div', { class: 'card' }, [
       createElement('div', { style: 'height: 320px' }, [
         createElement('img', { class: 'card-img-top', src: item.imageUrl, alt: 'Card image cap' }, [])
       ]),
-      createElement('div', { style: 'height: 280px' }, [
+      createElement('div', { style: 'height: 200px' }, [
         createElement('div', { class: 'card-body p-1', style: 'height: 180px;' }, [
           createElement('h3', { class: 'card-title' }, [item.name]),
           createElement('div', { class: 'align-text-bottom' }, [
             createElement('h5', { class: 'card-text' }, [item.brand]),
             createElement('p', { class: 'card-text' }, ['$' + item.price])
           ])
-        ]),
-        createElement('div', { style: 'footer' }, [
-          createElement('button', { class: 'btn bg-primary btn-lg btn-block p-3', style: 'position: absolute; height: 100px; border: solid; bottom: 0; right: 0;  left: 0', id: 'add-to-cart' }, ['Add to Cart'])
         ])
       ])
     ])
