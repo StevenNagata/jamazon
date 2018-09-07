@@ -93,11 +93,10 @@ document.querySelector('[data-view="catalog"]').addEventListener('click', functi
   var $itemBox = event.target.closest('[data-item-id]')
   if (!$itemBox) return
   var number = parseInt($itemBox.getAttribute('data-item-id'), 10)
-  console.log(number)
   var currentItem = findItem(number, appState.catalog.items)
   appState.details.item = currentItem
   appState.view = 'details'
-  console.log(appState)
+  renderApp(appState)
 })
 
 function renderItem(item) {
@@ -204,8 +203,7 @@ function renderApp(state) {
   else {
     $view.appendChild(renderGrid(state.catalog.items))
   }
+  showView(state.view)
 }
-console.log(findItem(6, appState.catalog.items))
-console.log(renderItemDescription(appState.catalog.items[0]))
+
 renderApp(appState)
-showView(appState)
