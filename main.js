@@ -89,9 +89,19 @@ var appState = {
   }
 }
 
+document.querySelector('[data-view="catalog"]').addEventListener('click', function (event) {
+  var $itemBox = event.target.closest('[data-item-id]')
+  if (!$itemBox) return
+  var number = parseInt($itemBox.getAttribute('data-item-id'), 10)
+  var currentItem = findItem(number, appState.catalog.items)
+  appState.details.item = currentItem
+  appState.view = 'details'
+  renderApp(appState)
+})
+
 function renderItem(item) {
   var $item =
-    createElement('div', { class: 'card border p-4 mb-4', style: 'height: 25rem' }, [
+    createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
       createElement('div', { style: 'height: 18rem' }, [
         createElement('img', { class: 'card-img-top', src: item.imageUrl, alt: 'Card image cap' }, [])
       ]),
@@ -122,6 +132,53 @@ function renderGrid(gridElements) {
   return $container
 }
 
+function renderItemDescription(item) {
+  var $itemDescription =
+    createElement('div', { class: 'd-flex justify-content-center' }, [
+      createElement('div', { class: 'row' }, [
+        createElement('div', null, [
+          createElement('div', { class: 'row no-gutters', style: 'width:900px' }, [
+            createElement('div', { class: 'col-lg-5 mt-5' }, [
+              createElement('img', { class: 'img-responsive w-100', src: item.imageUrl }, [])
+            ]),
+            createElement('div', { class: 'col' }, [
+              createElement('div', { class: 'card-body' }, [
+                createElement('h1', { class: 'card-title' }, [item.name]),
+                createElement('h4', null, ['Brand: ' + item.brand]),
+                createElement('h4', null, ['Origin: ' + item.origin]),
+                createElement('h6', null, [item.description]),
+                createElement('p', { class: 'card-text' }, ['$' + item.price])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  return $itemDescription
+}
+
+function findItem(itemId, catalogList) {
+  for (var i = 0; i < catalogList.length; i++) {
+    var item = catalogList[i]
+    if (item.itemId === itemId) {
+      return item
+    }
+  }
+}
+
+function showView(view) {
+  var $views = document.querySelectorAll('[data-view]')
+  for (var i = 0; i < $views.length; i++) {
+    var $view = $views[i]
+    if ($view.getAttribute('data-view') === view) {
+      $view.classList.remove('hidden')
+    }
+    else {
+      $view.classList.add('hidden')
+    }
+  }
+}
+
 function createElement(tagName, attributes, children) {
   var $tag = document.createElement(tagName)
   for (var i in attributes) {
@@ -140,7 +197,13 @@ function createElement(tagName, attributes, children) {
 
 function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
-  $view.appendChild(renderGrid(state.catalog.items))
+  if (state.view === 'details') {
+    $view.appendChild(renderItemDescription(state.details.item))
+  }
+  else {
+    $view.appendChild(renderGrid(state.catalog.items))
+  }
+  showView(state.view)
 }
 
 renderApp(appState)
