@@ -101,7 +101,7 @@ document.querySelector('[data-view="catalog"]').addEventListener('click', functi
 
 function renderItem(item) {
   var $item =
-    createElement('div', { class: 'card border p-4 mb-4', style: 'height: 25rem', 'data-item-id': item.itemId }, [
+    createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
       createElement('div', { style: 'height: 18rem' }, [
         createElement('img', { class: 'card-img-top', src: item.imageUrl, alt: 'Card image cap' }, [])
       ]),
@@ -134,11 +134,11 @@ function renderGrid(gridElements) {
 
 function renderItemDescription(item) {
   var $itemDescription =
-    createElement('div', { class: 'container my-5' }, [
+    createElement('div', { class: 'd-flex justify-content-center' }, [
       createElement('div', { class: 'row' }, [
-        createElement('div', { class: 'card shadow-sm' }, [
-          createElement('div', { class: 'row no-gutters' }, [
-            createElement('div', { class: 'col-lg-5' }, [
+        createElement('div', null, [
+          createElement('div', { class: 'row no-gutters', style: 'width:900px' }, [
+            createElement('div', { class: 'col-lg-5 mt-5' }, [
               createElement('img', { class: 'img-responsive w-100', src: item.imageUrl }, [])
             ]),
             createElement('div', { class: 'col' }, [
