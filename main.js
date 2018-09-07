@@ -105,6 +105,7 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
   if (event.target.id === 'add-to-cart') {
     appState.cart.push(currentItem)
   }
+  console.log(appState)
 })
 
 function renderItem(item) {
