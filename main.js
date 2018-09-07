@@ -204,6 +204,24 @@ function renderCartCount(cart) {
   return cartCount
 }
 
+function renderCartItem(cartItem) {
+  var cartElement = createElement('div', { class: 'd-flex justify-content-center m-auto', style: 'width: 30rem' }, [
+    createElement('div', { class: 'row border', style: 'height: 9.5rem' }, [
+      createElement('div', { class: 'col-sm-4 ' }, [
+        createElement('img', { class: 'img-thumbnail border-0', src: cartItem.imageUrl }, [])
+      ]),
+      createElement('div', null, [
+        createElement('div', { class: 'card-body' }, [
+          createElement('h5', null, [cartItem.name]),
+          createElement('h6', null, ['Brand: ' + cartItem.brand]),
+          createElement('p', null, ['$' + cartItem.price])
+        ])
+      ])
+    ])
+  ])
+  return cartElement
+}
+
 function createElement(tagName, attributes, children) {
   var $tag = document.createElement(tagName)
   for (var i in attributes) {
@@ -235,3 +253,5 @@ function renderApp(state) {
 }
 
 renderApp(appState)
+
+console.log(renderCartItem(appState.catalog.items[2]))
