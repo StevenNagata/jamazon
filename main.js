@@ -86,7 +86,8 @@ var appState = {
   },
   details: {
     item: null
-  }
+  },
+  cart: []
 }
 
 document.querySelector('[data-view="catalog"]').addEventListener('click', function (event) {
@@ -97,6 +98,14 @@ document.querySelector('[data-view="catalog"]').addEventListener('click', functi
   appState.details.item = currentItem
   appState.view = 'details'
   renderApp(appState)
+})
+
+document.querySelector('[data-view="details"]').addEventListener('click', function (event) {
+  let currentItem = appState.details.item
+  if (event.target.id === 'add-to-cart') {
+    appState.cart.push(currentItem)
+    renderApp(appState)
+  }
 })
 
 function renderItem(item) {
@@ -147,7 +156,8 @@ function renderItemDescription(item) {
                 createElement('h4', null, ['Brand: ' + item.brand]),
                 createElement('h4', null, ['Origin: ' + item.origin]),
                 createElement('h6', null, [item.description]),
-                createElement('p', { class: 'card-text' }, ['$' + item.price])
+                createElement('p', { class: 'card-text' }, ['$' + item.price]),
+                createElement('button', { id: 'add-to-cart', class: 'btn btn-dark' }, ['Add to Cart'])
               ])
             ])
           ])
@@ -179,6 +189,13 @@ function showView(view) {
   }
 }
 
+function renderCartCount(cart) {
+  var cartCount = createElement('div', { style: 'height: 30px' }, [
+    createElement('div', { class: 'p-5 float-right' }, ['Cart (' + cart.length + ')'])
+  ])
+  return cartCount
+}
+
 function createElement(tagName, attributes, children) {
   var $tag = document.createElement(tagName)
   for (var i in attributes) {
@@ -197,7 +214,10 @@ function createElement(tagName, attributes, children) {
 
 function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
+  $view.innerHTML = ''
   if (state.view === 'details') {
+
+    $view.appendChild(renderCartCount(state.cart))
     $view.appendChild(renderItemDescription(state.details.item))
   }
   else {
