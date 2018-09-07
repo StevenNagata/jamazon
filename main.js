@@ -89,6 +89,17 @@ var appState = {
   }
 }
 
+document.querySelector('[data-view="catalog"]').addEventListener('click', function (event) {
+  var $itemBox = event.target.closest('[data-item-id]')
+  if (!$itemBox) return
+  var number = parseInt($itemBox.getAttribute('data-item-id'), 10)
+  console.log(number)
+  var currentItem = findItem(number, appState.catalog.items)
+  appState.details.item = currentItem
+  appState.view = 'details'
+  console.log(appState)
+})
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 25rem', 'data-item-id': item.itemId }, [
