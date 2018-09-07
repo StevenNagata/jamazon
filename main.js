@@ -236,13 +236,15 @@ function renderCartItem(cartItem) {
 function renderCartPage(cart) {
   var sum = 0
   var count = 0
+  for (var j = 0; j < cart.length; j++) {
+    sum += cart[j].price
+    count += 1
+  }
   var $header = createElement('h1', { class: 'text-center mx-auto m-3 display-1', style: 'width: 500px' }, ['Cart'])
   var $container = createElement('div', { class: 'container' }, [])
   $container.appendChild($header)
   for (var i = 0; i < cart.length; i++) {
     $container.appendChild(renderCartItem(cart[i]))
-    sum += cart[i].price
-    count += 1
   }
   var countTotal = createElement('div', { class: 'text-right mt-3 mr-3' }, [count + ' Items'])
   var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + Math.round(sum * 100) / 100])
