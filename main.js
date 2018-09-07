@@ -180,6 +180,11 @@ function showView(view) {
   }
 }
 
+function renderCartCount(cart) {
+  var cartCount = createElement('div', null, ['Cart (' + cart.length + ')'])
+  return cartCount
+}
+
 function createElement(tagName, attributes, children) {
   var $tag = document.createElement(tagName)
   for (var i in attributes) {
@@ -210,3 +215,4 @@ function renderApp(state) {
 renderApp(appState)
 
 console.log(appState)
+console.log(renderCartCount(appState.cart))
