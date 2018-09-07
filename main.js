@@ -104,11 +104,8 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
   let currentItem = appState.details.item
   if (event.target.id === 'add-to-cart') {
     appState.cart.push(currentItem)
+    renderApp(appState)
   }
-  else {
-    return
-  }
-  renderApp(appState)
 })
 
 function renderItem(item) {
