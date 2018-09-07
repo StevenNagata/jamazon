@@ -181,7 +181,9 @@ function showView(view) {
 }
 
 function renderCartCount(cart) {
-  var cartCount = createElement('div', null, ['Cart (' + cart.length + ')'])
+  var cartCount = createElement('div', {style: 'height: 30px'}, [
+    createElement('div', { class: 'p-5 float-right' }, ['Cart (' + cart.length + ')'])
+  ])
   return cartCount
 }
 
@@ -204,6 +206,7 @@ function createElement(tagName, attributes, children) {
 function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
   if (state.view === 'details') {
+    $view.appendChild(renderCartCount(state.cart))
     $view.appendChild(renderItemDescription(state.details.item))
   }
   else {
