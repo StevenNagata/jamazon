@@ -100,6 +100,13 @@ document.querySelector('[data-view="catalog"]').addEventListener('click', functi
   renderApp(appState)
 })
 
+document.querySelector('[data-view="details"]').addEventListener('click', function (event) {
+  let currentItem = appState.details.item
+  if (event.target.id === 'add-to-cart') {
+    appState.cart.push(currentItem)
+  }
+})
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
@@ -149,7 +156,7 @@ function renderItemDescription(item) {
                 createElement('h4', null, ['Origin: ' + item.origin]),
                 createElement('h6', null, [item.description]),
                 createElement('p', { class: 'card-text' }, ['$' + item.price]),
-                createElement('button', { class: 'btn btn-dark' }, ['Add to Cart'])
+                createElement('button', { id: 'add-to-cart', class: 'btn btn-dark' }, ['Add to Cart'])
               ])
             ])
           ])
@@ -182,7 +189,7 @@ function showView(view) {
 }
 
 function renderCartCount(cart) {
-  var cartCount = createElement('div', {style: 'height: 30px'}, [
+  var cartCount = createElement('div', { style: 'height: 30px' }, [
     createElement('div', { class: 'p-5 float-right' }, ['Cart (' + cart.length + ')'])
   ])
   return cartCount
