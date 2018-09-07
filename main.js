@@ -148,7 +148,8 @@ function renderItemDescription(item) {
                 createElement('h4', null, ['Brand: ' + item.brand]),
                 createElement('h4', null, ['Origin: ' + item.origin]),
                 createElement('h6', null, [item.description]),
-                createElement('p', { class: 'card-text' }, ['$' + item.price])
+                createElement('p', { class: 'card-text' }, ['$' + item.price]),
+                createElement('button', { class: 'btn btn-dark' }, ['Add to Cart'])
               ])
             ])
           ])
