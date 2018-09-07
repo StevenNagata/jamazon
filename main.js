@@ -105,7 +105,10 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
   if (event.target.id === 'add-to-cart') {
     appState.cart.push(currentItem)
   }
-  console.log(appState)
+  else {
+    return
+  }
+  renderApp(appState)
 })
 
 function renderItem(item) {
@@ -214,7 +217,9 @@ function createElement(tagName, attributes, children) {
 
 function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
+  $view.innerHTML = ''
   if (state.view === 'details') {
+
     $view.appendChild(renderCartCount(state.cart))
     $view.appendChild(renderItemDescription(state.details.item))
   }
@@ -225,6 +230,3 @@ function renderApp(state) {
 }
 
 renderApp(appState)
-
-console.log(appState)
-console.log(renderCartCount(appState.cart))
