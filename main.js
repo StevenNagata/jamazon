@@ -108,6 +108,13 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
   }
 })
 
+document.querySelector('[data-view="details"]').addEventListener('click', function (event) {
+  if (event.target.id === 'back') {
+    appState.view = 'catalog'
+    renderApp(appState)
+  }
+})
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
@@ -157,7 +164,8 @@ function renderItemDescription(item) {
                 createElement('h4', null, ['Origin: ' + item.origin]),
                 createElement('h6', null, [item.description]),
                 createElement('p', { class: 'card-text' }, ['$' + item.price]),
-                createElement('button', { id: 'add-to-cart', class: 'btn btn-dark' }, ['Add to Cart'])
+                createElement('button', { id: 'add-to-cart', class: 'btn btn-dark' }, ['Add to Cart']),
+                createElement('button', { id: 'back', class: 'btn btn-dark m-2' }, ['Back'])
               ])
             ])
           ])
