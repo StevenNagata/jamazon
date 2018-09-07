@@ -243,7 +243,6 @@ function renderCartPage(cart) {
     $container.appendChild(renderCartItem(cart[i]))
     sum += cart[i].price
     count += 1
-    console.log(sum)
   }
   var countTotal = createElement('div', { class: 'text-right mt-3 mr-3' }, [count + ' Items'])
   var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + Math.round(sum * 100) / 100])
@@ -293,7 +292,3 @@ function renderApp(state) {
 }
 
 renderApp(appState)
-
-console.log(renderCartItem(appState.catalog.items[2]))
-
-console.log(renderCartPage)
