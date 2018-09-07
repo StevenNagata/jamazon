@@ -167,6 +167,19 @@ function findItem(itemId, catalogList) {
   }
 }
 
+function showView(view) {
+  var $views = document.querySelectorAll('[data-view]')
+  for (var i = 0; i < $views.length; i++) {
+    var $view = $views[i]
+    if ($view.getAttribute('data-view') === view) {
+      $view.classList.remove('hidden')
+    }
+    else {
+      $view.classList.add('hidden')
+    }
+  }
+}
+
 function createElement(tagName, attributes, children) {
   var $tag = document.createElement(tagName)
   for (var i in attributes) {
@@ -190,3 +203,5 @@ function renderApp(state) {
 console.log(findItem(6, appState.catalog.items))
 console.log(renderItemDescription(appState.catalog.items[0]))
 renderApp(appState)
+
+showView('catalog')
