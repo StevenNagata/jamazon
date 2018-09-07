@@ -222,6 +222,25 @@ function renderCartItem(cartItem) {
   return cartElement
 }
 
+function renderCartPage(cart) {
+  var sum = 0
+  var count = 0
+  var $header = createElement('h1', { class: 'text-center mx-auto m-3 display-1', style: 'width: 500px' }, ['Cart'])
+  var $container = createElement('div', { class: 'container' }, [])
+  $container.appendChild($header)
+  for (var i = 0; i < cart.length; i++) {
+    $container.appendChild(renderCartItem(cart[i]))
+    sum += cart[i].price
+    count += 1
+    console.log(sum)
+  }
+  var countTotal = createElement('div', {class: 'text-right mt-3 mr-3'}, [count + ' Items'])
+  var costTotal = createElement('div', {class: 'text-right mr-3'}, ['Total: $' + sum])
+  $container.appendChild(countTotal)
+  $container.appendChild(costTotal)
+  return $container
+}
+
 function createElement(tagName, attributes, children) {
   var $tag = document.createElement(tagName)
   for (var i in attributes) {
@@ -255,3 +274,5 @@ function renderApp(state) {
 renderApp(appState)
 
 console.log(renderCartItem(appState.catalog.items[2]))
+
+console.log(renderCartPage)
