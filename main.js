@@ -86,7 +86,8 @@ var appState = {
   },
   details: {
     item: null
-  }
+  },
+  cart: []
 }
 
 document.querySelector('[data-view="catalog"]').addEventListener('click', function (event) {
@@ -207,3 +208,5 @@ function renderApp(state) {
 }
 
 renderApp(appState)
+
+console.log(appState)
