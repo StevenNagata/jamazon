@@ -118,8 +118,11 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
 document.querySelector('[data-view="cart"]').addEventListener('click', function (event) {
   if (event.target.id === 'cart') {
     appState.view = 'cart'
-    renderApp(appState)
   }
+  if (event.target.id === 'back-to-shopping') {
+    appState.view = 'catalog'
+  }
+  renderApp(appState)
 }
 )
 
@@ -243,9 +246,13 @@ function renderCartPage(cart) {
     console.log(sum)
   }
   var countTotal = createElement('div', { class: 'text-right mt-3 mr-3' }, [count + ' Items'])
-  var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + sum])
+  var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + Math.round(sum * 100) / 100])
+  var continueShopping = createElement('div', { class: 'text-center' }, [
+    createElement('button', { id: 'back-to-shopping', class: 'btn btn-dark m-2' }, ['Continue Shopping'])
+  ])
   $container.appendChild(countTotal)
   $container.appendChild(costTotal)
+  $container.appendChild(continueShopping)
   return $container
 }
 
