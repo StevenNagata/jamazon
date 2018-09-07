@@ -198,10 +198,14 @@ function createElement(tagName, attributes, children) {
 
 function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
-  $view.appendChild(renderGrid(state.catalog.items))
+  if (state.view === 'details') {
+    $view.appendChild(renderItemDescription(state.details.item))
+  }
+  else {
+    $view.appendChild(renderGrid(state.catalog.items))
+  }
 }
 console.log(findItem(6, appState.catalog.items))
 console.log(renderItemDescription(appState.catalog.items[0]))
 renderApp(appState)
-
-showView('catalog')
+showView(appState)
