@@ -108,6 +108,13 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
   }
 })
 
+document.querySelector('[data-view="details"]').addEventListener('click', function (event) {
+  if (event.target.id === 'back') {
+    appState.view = 'catalog'
+    renderApp(appState)
+  }
+})
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
