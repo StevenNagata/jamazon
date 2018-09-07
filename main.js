@@ -115,6 +115,14 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
   }
 })
 
+document.querySelector('[data-view="cart"]').addEventListener('click', function (event) {
+  if (event.target.id === 'cart') {
+    appState.view = 'cart'
+    renderApp(appState)
+  }
+}
+)
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
@@ -188,7 +196,7 @@ function showView(view) {
   var $views = document.querySelectorAll('[data-view]')
   for (var i = 0; i < $views.length; i++) {
     var $view = $views[i]
-    if ($view.getAttribute('data-view') === view) {
+    if ($view.getAttribute('data-view') === view || $view.getAttribute('data-view') === 'cart') {
       $view.classList.remove('hidden')
     }
     else {
@@ -198,8 +206,8 @@ function showView(view) {
 }
 
 function renderCartCount(cart) {
-  var cartCount = createElement('div', { style: 'height: 30px' }, [
-    createElement('div', { class: 'p-5 float-right' }, ['Cart (' + cart.length + ')'])
+  var cartCount = createElement('div', null, [
+    createElement('div', { id: 'cart', class: 'p-2 float-right' }, ['Cart (' + cart.length + ')'])
   ])
   return cartCount
 }
@@ -234,8 +242,8 @@ function renderCartPage(cart) {
     count += 1
     console.log(sum)
   }
-  var countTotal = createElement('div', {class: 'text-right mt-3 mr-3'}, [count + ' Items'])
-  var costTotal = createElement('div', {class: 'text-right mr-3'}, ['Total: $' + sum])
+  var countTotal = createElement('div', { class: 'text-right mt-3 mr-3' }, [count + ' Items'])
+  var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + sum])
   $container.appendChild(countTotal)
   $container.appendChild(costTotal)
   return $container
@@ -259,14 +267,20 @@ function createElement(tagName, attributes, children) {
 
 function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
+  var $cart = document.querySelector('[data-view="cart"]')
+  $cart.innerHTML = ''
   $view.innerHTML = ''
-  if (state.view === 'details') {
-
+  if (state.view === 'cart') {
     $view.appendChild(renderCartCount(state.cart))
+    $view.appendChild(renderCartPage(state.cart))
+  }
+  else if (state.view === 'details') {
     $view.appendChild(renderItemDescription(state.details.item))
+    $cart.appendChild(renderCartCount(state.cart))
   }
   else {
     $view.appendChild(renderGrid(state.catalog.items))
+    $cart.appendChild(renderCartCount(state.cart))
   }
   showView(state.view)
 }
