@@ -118,13 +118,40 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
 document.querySelector('body').addEventListener('click', function (event) {
   if (event.target.id === 'cart') {
     appState.view = 'cart'
+    renderApp(appState)
   }
   if (event.target.id === 'back-to-shopping') {
     appState.view = 'catalog'
+    renderApp(appState)
   }
-  renderApp(appState)
 }
 )
+
+document.querySelector('[data-view="cart"]').addEventListener('click', function (event) {
+  if (event.target.id === 'checkout') {
+    appState.view = 'checkout'
+    renderApp(appState)
+  }
+})
+
+document.querySelector('[data-view="checkout"]').addEventListener('click', function (event) {
+  if (event.target.id === 'pay') {
+    appState.view = 'confirmation'
+    renderApp(appState)
+  }
+  else if (event.target.id === 'back') {
+    appState.view = 'cart'
+    renderApp(appState)
+  }
+})
+
+document.querySelector('[data-view="confirmation"]').addEventListener('click', function (event) {
+  if (event.target.id === 'close') {
+    appState.view = 'catalog'
+    appState.cart = []
+    renderApp(appState)
+  }
+})
 
 function renderItem(item) {
   var $item =
@@ -248,13 +275,80 @@ function renderCartPage(cart) {
   }
   var countTotal = createElement('div', { class: 'text-right mt-3 mr-3' }, [count + ' Items'])
   var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + Math.round(sum * 100) / 100])
-  var continueShopping = createElement('div', { class: 'text-center' }, [
-    createElement('button', { id: 'back-to-shopping', class: 'btn btn-dark m-2' }, ['Continue Shopping'])
+  var continueShoppingOrCheckOut = createElement('div', { class: 'text-center' }, [
+    createElement('button', { id: 'back-to-shopping', class: 'btn btn-dark m-2' }, ['Continue Shopping']),
+    createElement('button', { id: 'checkout', class: 'btn btn-success m-2' }, ['Check Out'])
   ])
+
   $container.appendChild(countTotal)
   $container.appendChild(costTotal)
-  $container.appendChild(continueShopping)
+  $container.appendChild(continueShoppingOrCheckOut)
   return $container
+}
+
+function renderCheckout(cart) {
+  var sum = 0
+  var count = 0
+  for (var j = 0; j < cart.length; j++) {
+    sum += cart[j].price
+    count += 1
+  }
+  var countTotal = createElement('div', { class: 'text-right mt-3 mr-3' }, [count + ' Items'])
+  var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + Math.round(sum * 100) / 100])
+
+  var $container = createElement('div', { class: 'container', style: 'width: 600px' }, [])
+  var $header = createElement('h1', { class: 'text-center mx-auto m-3 display-1', style: 'width: 500px' }, ['Checkout'])
+  var $checkoutForm = createElement('div', { class: 'container border' }, [
+    createElement('h3', { class: 'd-flex justify-content-center p-4' }, ['Customer Information']),
+    createElement('div', { class: 'form-group' }, [
+      createElement('label', { for: 'NameInput' }, ['Name']),
+      createElement('input', { class: 'form-control', placeholder: 'Enter full name' }, [])
+    ]),
+    createElement('div', { class: 'form-group' }, [
+      createElement('label', { for: 'AddressInput' }, ['Address']),
+      createElement('input', { class: 'form-control', placeholder: 'Enter address' }, [])
+    ]),
+    createElement('div', { class: 'form-group' }, [
+      createElement('label', { for: 'CreditCardInput' }, ['Credit Card']),
+      createElement('input', { class: 'form-control', placeholder: 'Enter credit card number' }, []),
+      createElement('small', { class: 'form-text text-muted' }, ['We\'ll never share your information with anyone else.'])
+    ]),
+    createElement('div', { class: 'form-group' }, [
+      createElement('label', { for: 'CvvInput' }, ['Credit Card CVV Number']),
+      createElement('input', { class: 'form-control', placeholder: 'Enter credit card cvv number' }, [])
+    ])
+  ])
+  var pay = createElement('div', { class: 'd-flex justify-content-center p-4' }, [
+    createElement('button', { id: 'pay', class: 'btn btn-success m-1' }, ['Pay']),
+    createElement('button', { id: 'back', class: 'btn btn-dark m-1' }, ['Back'])
+  ])
+
+  $container.appendChild($header)
+  $checkoutForm.appendChild(countTotal)
+  $checkoutForm.appendChild(costTotal)
+  $checkoutForm.appendChild(pay)
+  $container.appendChild($checkoutForm)
+  return $container
+}
+
+function renderConfirmation() {
+  var confirmation =
+    createElement('div', { id: 'mymodal', role: 'dialog' }, [
+      createElement('div', { class: 'modal-dialog', role: 'document' }, [
+        createElement('div', { class: 'modal-content' }, [
+          createElement('div', { class: 'modal-header' }, [
+            createElement('h5', { class: 'modal-title' }, ['Purchase Confirmed']),
+            createElement('div', { class: 'modal-body' }, [
+              createElement('p', null, ['Thank you for your purchase!'])
+            ])
+          ]),
+          createElement('div', { class: 'modal-footer' }, [
+            createElement('button', { id: 'close', type: 'button', class: 'btn btn-primary' }, ['Close'])
+          ])
+        ])
+      ])
+    ])
+  return confirmation
 }
 
 function createElement(tagName, attributes, children) {
@@ -285,10 +379,16 @@ function renderApp(state) {
   else if (state.view === 'details') {
     $view.appendChild(renderItemDescription(state.details.item))
   }
+  else if (state.view === 'checkout') {
+    $view.appendChild(renderCheckout(state.cart))
+  }
+  else if (state.view === 'confirmation') {
+    $view.innerHTML = ''
+    $view.appendChild(renderConfirmation())
+  }
   else {
     $view.appendChild(renderGrid(state.catalog.items))
   }
   showView(state.view)
 }
-
 renderApp(appState)
