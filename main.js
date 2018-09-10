@@ -126,6 +126,14 @@ document.querySelector('body').addEventListener('click', function (event) {
 }
 )
 
+document.querySelector('[data-view="cart"]').addEventListener('click', function (event) {
+  if (event.target.id === 'checkout') {
+    appState.view = 'checkout'
+    console.log(appState)
+    renderApp(appState)
+  }
+})
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
@@ -250,7 +258,7 @@ function renderCartPage(cart) {
   var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + Math.round(sum * 100) / 100])
   var continueShoppingOrCheckOut = createElement('div', { class: 'text-center' }, [
     createElement('button', { id: 'back-to-shopping', class: 'btn btn-dark m-2' }, ['Continue Shopping']),
-    createElement('button', { id: 'check-out', class: 'btn btn-success m-2' }, ['Check Out'])
+    createElement('button', { id: 'checkout', class: 'btn btn-success m-2' }, ['Check Out'])
   ])
 
   $container.appendChild(countTotal)
