@@ -115,6 +115,17 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
   }
 })
 
+document.querySelector('body').addEventListener('click', function (event) {
+  if (event.target.id === 'cart') {
+    appState.view = 'cart'
+  }
+  if (event.target.id === 'back-to-shopping') {
+    appState.view = 'catalog'
+  }
+  renderApp(appState)
+}
+)
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
@@ -188,7 +199,7 @@ function showView(view) {
   var $views = document.querySelectorAll('[data-view]')
   for (var i = 0; i < $views.length; i++) {
     var $view = $views[i]
-    if ($view.getAttribute('data-view') === view) {
+    if ($view.getAttribute('data-view') === view || $view.getAttribute('data-view') === 'cart') {
       $view.classList.remove('hidden')
     }
     else {
@@ -198,10 +209,52 @@ function showView(view) {
 }
 
 function renderCartCount(cart) {
-  var cartCount = createElement('div', { style: 'height: 30px' }, [
-    createElement('div', { class: 'p-5 float-right' }, ['Cart (' + cart.length + ')'])
+  var cartCount = createElement('div', null, [
+    createElement('div', { id: 'cart', class: 'p-2 float-right' }, ['Cart (' + cart.length + ')'])
   ])
   return cartCount
+}
+
+function renderCartItem(cartItem) {
+  var cartElement = createElement('div', { class: 'd-flex justify-content-center m-auto', style: 'width: 30rem' }, [
+    createElement('div', { class: 'row border', style: 'height: 9.5rem' }, [
+      createElement('div', { class: 'col-sm-4 ' }, [
+        createElement('img', { class: 'img-thumbnail border-0', src: cartItem.imageUrl }, [])
+      ]),
+      createElement('div', null, [
+        createElement('div', { class: 'card-body' }, [
+          createElement('h5', null, [cartItem.name]),
+          createElement('h6', null, ['Brand: ' + cartItem.brand]),
+          createElement('p', null, ['$' + cartItem.price])
+        ])
+      ])
+    ])
+  ])
+  return cartElement
+}
+
+function renderCartPage(cart) {
+  var sum = 0
+  var count = 0
+  for (var j = 0; j < cart.length; j++) {
+    sum += cart[j].price
+    count += 1
+  }
+  var $header = createElement('h1', { class: 'text-center mx-auto m-3 display-1', style: 'width: 500px' }, ['Cart'])
+  var $container = createElement('div', { class: 'container' }, [])
+  $container.appendChild($header)
+  for (var i = 0; i < cart.length; i++) {
+    $container.appendChild(renderCartItem(cart[i]))
+  }
+  var countTotal = createElement('div', { class: 'text-right mt-3 mr-3' }, [count + ' Items'])
+  var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + Math.round(sum * 100) / 100])
+  var continueShopping = createElement('div', { class: 'text-center' }, [
+    createElement('button', { id: 'back-to-shopping', class: 'btn btn-dark m-2' }, ['Continue Shopping'])
+  ])
+  $container.appendChild(countTotal)
+  $container.appendChild(costTotal)
+  $container.appendChild(continueShopping)
+  return $container
 }
 
 function createElement(tagName, attributes, children) {
@@ -222,10 +275,14 @@ function createElement(tagName, attributes, children) {
 
 function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
+  var $cart = document.querySelector('[data-view="cart"]')
+  $cart.innerHTML = ''
   $view.innerHTML = ''
-  if (state.view === 'details') {
-
-    $view.appendChild(renderCartCount(state.cart))
+  $view.appendChild(renderCartCount(state.cart))
+  if (state.view === 'cart') {
+    $view.appendChild(renderCartPage(state.cart))
+  }
+  else if (state.view === 'details') {
     $view.appendChild(renderItemDescription(state.details.item))
   }
   else {

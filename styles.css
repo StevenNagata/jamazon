@@ -1,3 +1,7 @@
 .hidden {
   display: none;
 }
+
+#cart:hover {
+  cursor: pointer;
+}
