@@ -134,6 +134,25 @@ document.querySelector('[data-view="cart"]').addEventListener('click', function 
   }
 })
 
+document.querySelector('[data-view="checkout"]').addEventListener('click', function (event) {
+  if (event.target.id === 'pay') {
+    appState.view = 'confirmation'
+    renderApp(appState)
+  }
+  else if (event.target.id === 'back') {
+    appState.view = 'cart'
+    renderApp(appState)
+  }
+})
+
+document.querySelector('[data-view="confirmation"]').addEventListener('click', function (event) {
+  if (event.target.id === 'close') {
+    appState.view = 'catalog'
+    appState.cart = []
+    renderApp(appState)
+  }
+})
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
@@ -300,7 +319,8 @@ function renderCheckout(cart) {
     ])
   ])
   var pay = createElement('div', { class: 'd-flex justify-content-center p-4' }, [
-    createElement('button', { class: 'btn btn-success' }, ['Pay'])
+    createElement('button', { id: 'pay', class: 'btn btn-success m-1' }, ['Pay']),
+    createElement('button', { id: 'back', class: 'btn btn-dark m-1' }, ['Back'])
   ])
 
   $container.appendChild($header)
@@ -309,6 +329,26 @@ function renderCheckout(cart) {
   $checkoutForm.appendChild(pay)
   $container.appendChild($checkoutForm)
   return $container
+}
+
+function renderConfirmation() {
+  var confirmation =
+    createElement('div', { id: 'mymodal', role: 'dialog' }, [
+      createElement('div', { class: 'modal-dialog', role: 'document' }, [
+        createElement('div', { class: 'modal-content' }, [
+          createElement('div', { class: 'modal-header' }, [
+            createElement('h5', { class: 'modal-title' }, ['Purchase Confirmed']),
+            createElement('div', { class: 'modal-body' }, [
+              createElement('p', null, ['Thank you for your purchase!'])
+            ])
+          ]),
+          createElement('div', { class: 'modal-footer' }, [
+            createElement('button', { id: 'close', type: 'button', class: 'btn btn-primary' }, ['Close'])
+          ])
+        ])
+      ])
+    ])
+  return confirmation
 }
 
 function createElement(tagName, attributes, children) {
@@ -342,10 +382,13 @@ function renderApp(state) {
   else if (state.view === 'checkout') {
     $view.appendChild(renderCheckout(state.cart))
   }
+  else if (state.view === 'confirmation') {
+    $view.innerHTML = ''
+    $view.appendChild(renderConfirmation())
+  }
   else {
     $view.appendChild(renderGrid(state.catalog.items))
   }
   showView(state.view)
 }
-
 renderApp(appState)
