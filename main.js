@@ -248,12 +248,14 @@ function renderCartPage(cart) {
   }
   var countTotal = createElement('div', { class: 'text-right mt-3 mr-3' }, [count + ' Items'])
   var costTotal = createElement('div', { class: 'text-right mr-3' }, ['Total: $' + Math.round(sum * 100) / 100])
-  var continueShopping = createElement('div', { class: 'text-center' }, [
-    createElement('button', { id: 'back-to-shopping', class: 'btn btn-dark m-2' }, ['Continue Shopping'])
+  var continueShoppingOrCheckOut = createElement('div', { class: 'text-center' }, [
+    createElement('button', { id: 'back-to-shopping', class: 'btn btn-dark m-2' }, ['Continue Shopping']),
+    createElement('button', { id: 'check-out', class: 'btn btn-success m-2' }, ['Check Out'])
   ])
+
   $container.appendChild(countTotal)
   $container.appendChild(costTotal)
-  $container.appendChild(continueShopping)
+  $container.appendChild(continueShoppingOrCheckOut)
   return $container
 }
 
