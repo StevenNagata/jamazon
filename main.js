@@ -115,7 +115,7 @@ document.querySelector('[data-view="details"]').addEventListener('click', functi
   }
 })
 
-document.querySelector('[data-view="cart"]').addEventListener('click', function (event) {
+document.querySelector('body').addEventListener('click', function (event) {
   if (event.target.id === 'cart') {
     appState.view = 'cart'
   }
@@ -278,17 +278,15 @@ function renderApp(state) {
   var $cart = document.querySelector('[data-view="cart"]')
   $cart.innerHTML = ''
   $view.innerHTML = ''
+  $view.appendChild(renderCartCount(state.cart))
   if (state.view === 'cart') {
-    $view.appendChild(renderCartCount(state.cart))
     $view.appendChild(renderCartPage(state.cart))
   }
   else if (state.view === 'details') {
     $view.appendChild(renderItemDescription(state.details.item))
-    $cart.appendChild(renderCartCount(state.cart))
   }
   else {
     $view.appendChild(renderGrid(state.catalog.items))
-    $cart.appendChild(renderCartCount(state.cart))
   }
   showView(state.view)
 }
