@@ -93,6 +93,16 @@ var appState = {
 }
 
 document.querySelector('[data-view="catalog"]').addEventListener('click', function (event) {
+  if (event.target.id === 'High-to-Low') {
+    appState.sort = 'High-to-Low'
+    sort(appState.sort)
+    renderApp(appState)
+  }
+  else if (event.target.id === 'Low-to-High') {
+    appState.sort = 'Low-to-High'
+    sort(appState.sort)
+    renderApp(appState)
+  }
   var $itemBox = event.target.closest('[data-item-id]')
   if (!$itemBox) return
   var number = parseInt($itemBox.getAttribute('data-item-id'), 10)
@@ -155,6 +165,18 @@ document.querySelector('[data-view="confirmation"]').addEventListener('click', f
   }
 })
 
+function sort(sortBy) {
+  appState.sortedCatalog = appState.catalog.items.slice(0)
+  appState.sortedCatalog = appState.sortedCatalog.sort(function (obj1, obj2) {
+    if (sortBy === 'Low-to-High') {
+      return obj1.price - obj2.price
+    }
+    else if (sortBy === 'High-to-Low') {
+      return obj2.price - obj1.price
+    }
+  })
+}
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
@@ -176,10 +198,12 @@ function renderItem(item) {
 
 function renderGrid(gridElements) {
   var $header = createElement('h1', { class: 'text-center mx-auto m-3 display-1', style: 'width: 500px' }, ['JAMAZON'])
-  var $sort = createElement('button', null, ['Sort: Low-to-High'])
+  var $sortLowtoHigh = createElement('button', { id: 'Low-to-High', class: 'm-1' }, ['Sort: Low-to-High'])
+  var $sortHightoLow = createElement('button', { id: 'High-to-Low', class: 'm-1 float-right' }, ['Sort: High-to-Low'])
   var $container = createElement('div', { class: 'container' }, [])
   $container.appendChild($header)
-  $container.appendChild($sort)
+  $container.appendChild($sortLowtoHigh)
+  $container.appendChild($sortHightoLow)
   var $row = createElement('div', { class: 'row m-3', style: 'height: auto' }, [])
   for (var i = 0; i < gridElements.length; i++) {
     var $item = gridElements[i]
@@ -392,22 +416,13 @@ function renderApp(state) {
     $view.appendChild(renderConfirmation())
   }
   else {
-    $view.appendChild(renderGrid(state.catalog.items))
+    if (state.sort !== null) {
+      $view.appendChild(renderGrid(state.sortedCatalog))
+    }
+    else {
+      $view.appendChild(renderGrid(state.catalog.items))
+    }
   }
   showView(state.view)
 }
 renderApp(appState)
-
-function sort(sortBy) {
-  appState.sort = appState.catalog.items.slice(0)
-  appState.sort = appState.sort.sort(function (obj1, obj2) {
-    if (sortBy === 'Low-to-High') {
-      return obj1.price - obj2.price
-    }
-    else if (sortBy === 'High-to-Low') {
-      return obj2.price - obj1.price
-    }
-  })
-}
-
-console.log(sort('High-to-Low'))
