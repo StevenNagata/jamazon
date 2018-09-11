@@ -88,9 +88,9 @@ var appState = {
     item: null
   },
   cart: [],
-  sort: null,
-  sortedCatalog: []
+  sort: null
 }
+var sortedList = []
 
 document.querySelector('[data-view="catalog"]').addEventListener('click', function (event) {
   if (event.target.id === 'High-to-Low') {
@@ -166,8 +166,7 @@ document.querySelector('[data-view="confirmation"]').addEventListener('click', f
 })
 
 function sort(sortBy) {
-  appState.sortedCatalog = appState.catalog.items.slice(0)
-  appState.sortedCatalog = appState.sortedCatalog.sort(function (obj1, obj2) {
+  sortedList = appState.catalog.items.sort(function (obj1, obj2) {
     if (sortBy === 'Low-to-High') {
       return obj1.price - obj2.price
     }
@@ -175,6 +174,7 @@ function sort(sortBy) {
       return obj2.price - obj1.price
     }
   })
+  return sortedList
 }
 
 function renderItem(item) {
@@ -198,12 +198,16 @@ function renderItem(item) {
 
 function renderGrid(gridElements) {
   var $header = createElement('h1', { class: 'text-center mx-auto m-3 display-1', style: 'width: 500px' }, ['JAMAZON'])
-  var $sortLowtoHigh = createElement('button', { id: 'Low-to-High', class: 'm-1' }, ['Sort: Low-to-High'])
-  var $sortHightoLow = createElement('button', { id: 'High-to-Low', class: 'm-1 float-right' }, ['Sort: High-to-Low'])
+  var $sort = createElement('div', { class: 'dropdown' }, [
+    createElement('button', { class: 'btn btn-secondary dropdown-toggle', type: 'button', id: 'dropdownMenuButton', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' }, ['Sort By Price:']),
+    createElement('div', { class: 'dropdown-menu', 'aria-labelledby': 'dropdownMenuButton' }, [
+      createElement('a', { id: 'Low-to-High', class: 'dropdown-item' }, ['Low-to-High']),
+      createElement('a', { id: 'High-to-Low', class: 'dropdown-item' }, ['High-to-Low'])
+    ])
+  ])
   var $container = createElement('div', { class: 'container' }, [])
   $container.appendChild($header)
-  $container.appendChild($sortLowtoHigh)
-  $container.appendChild($sortHightoLow)
+  $container.appendChild($sort)
   var $row = createElement('div', { class: 'row m-3', style: 'height: auto' }, [])
   for (var i = 0; i < gridElements.length; i++) {
     var $item = gridElements[i]
@@ -417,7 +421,7 @@ function renderApp(state) {
   }
   else {
     if (state.sort !== null) {
-      $view.appendChild(renderGrid(state.sortedCatalog))
+      $view.appendChild(renderGrid(sort(state.sort)))
     }
     else {
       $view.appendChild(renderGrid(state.catalog.items))
