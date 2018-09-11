@@ -87,7 +87,9 @@ var appState = {
   details: {
     item: null
   },
-  cart: []
+  cart: [],
+  sort: null,
+  sortedCatalog: []
 }
 
 document.querySelector('[data-view="catalog"]').addEventListener('click', function (event) {
@@ -395,3 +397,17 @@ function renderApp(state) {
   showView(state.view)
 }
 renderApp(appState)
+
+function sort(sortBy) {
+  appState.sort = appState.catalog.items.slice(0)
+  appState.sort = appState.sort.sort(function (obj1, obj2) {
+    if (sortBy === 'Low-to-High') {
+      return obj1.price - obj2.price
+    }
+    else if (sortBy === 'High-to-Low') {
+      return obj2.price - obj1.price
+    }
+  })
+}
+
+console.log(sort('High-to-Low'))
