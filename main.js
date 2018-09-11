@@ -90,17 +90,14 @@ var appState = {
   cart: [],
   sort: null
 }
-var sortedList = []
 
 document.querySelector('[data-view="catalog"]').addEventListener('click', function (event) {
   if (event.target.id === 'High-to-Low') {
     appState.sort = 'High-to-Low'
-    sort(appState.sort)
     renderApp(appState)
   }
   else if (event.target.id === 'Low-to-High') {
     appState.sort = 'Low-to-High'
-    sort(appState.sort)
     renderApp(appState)
   }
   var $itemBox = event.target.closest('[data-item-id]')
@@ -165,8 +162,9 @@ document.querySelector('[data-view="confirmation"]').addEventListener('click', f
   }
 })
 
-function sort(sortBy) {
-  sortedList = appState.catalog.items.sort(function (obj1, obj2) {
+function sort(unsorted, sortBy) {
+  let sortedList = unsorted.slice(0)
+  sortedList = unsorted.sort(function (obj1, obj2) {
     if (sortBy === 'Low-to-High') {
       return obj1.price - obj2.price
     }
@@ -421,7 +419,7 @@ function renderApp(state) {
   }
   else {
     if (state.sort !== null) {
-      $view.appendChild(renderGrid(sort(state.sort)))
+      $view.appendChild(renderGrid(sort(state.catalog.items, state.sort)))
     }
     else {
       $view.appendChild(renderGrid(state.catalog.items))
