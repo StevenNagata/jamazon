@@ -174,8 +174,10 @@ function renderItem(item) {
 
 function renderGrid(gridElements) {
   var $header = createElement('h1', { class: 'text-center mx-auto m-3 display-1', style: 'width: 500px' }, ['JAMAZON'])
+  var $sort = createElement('button', null, ['Sort: Low-to-High'])
   var $container = createElement('div', { class: 'container' }, [])
   $container.appendChild($header)
+  $container.appendChild($sort)
   var $row = createElement('div', { class: 'row m-3', style: 'height: auto' }, [])
   for (var i = 0; i < gridElements.length; i++) {
     var $item = gridElements[i]
@@ -201,6 +203,7 @@ function renderItemDescription(item) {
                 createElement('h4', null, ['Brand: ' + item.brand]),
                 createElement('h4', null, ['Origin: ' + item.origin]),
                 createElement('h6', null, [item.description]),
+                createElement('p', null, [item.details]),
                 createElement('p', { class: 'card-text' }, ['$' + item.price]),
                 createElement('button', { id: 'add-to-cart', class: 'btn btn-dark' }, ['Add to Cart']),
                 createElement('button', { id: 'back', class: 'btn btn-dark m-2' }, ['Back'])
