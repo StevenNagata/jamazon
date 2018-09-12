@@ -87,10 +87,23 @@ var appState = {
   details: {
     item: null
   },
-  cart: []
+  cart: [],
+  sort: null
 }
 
 document.querySelector('[data-view="catalog"]').addEventListener('click', function (event) {
+  if (event.target.id === 'High-to-Low') {
+    appState.sort = 'High-to-Low'
+    renderApp(appState)
+  }
+  else if (event.target.id === 'No Sort') {
+    appState.sort = null
+    renderApp(appState)
+  }
+  else if (event.target.id === 'Low-to-High') {
+    appState.sort = 'Low-to-High'
+    renderApp(appState)
+  }
   var $itemBox = event.target.closest('[data-item-id]')
   if (!$itemBox) return
   var number = parseInt($itemBox.getAttribute('data-item-id'), 10)
@@ -153,6 +166,19 @@ document.querySelector('[data-view="confirmation"]').addEventListener('click', f
   }
 })
 
+function sort(unsorted, sortBy) {
+  let sortedList = unsorted.slice(0)
+  sortedList = sortedList.sort(function (obj1, obj2) {
+    if (sortBy === 'Low-to-High') {
+      return obj1.price - obj2.price
+    }
+    else if (sortBy === 'High-to-Low') {
+      return obj2.price - obj1.price
+    }
+  })
+  return sortedList
+}
+
 function renderItem(item) {
   var $item =
     createElement('div', { class: 'card border p-4 mb-4', style: 'height: 29rem', 'data-item-id': item.itemId }, [
@@ -174,8 +200,17 @@ function renderItem(item) {
 
 function renderGrid(gridElements) {
   var $header = createElement('h1', { class: 'text-center mx-auto m-3 display-1', style: 'width: 500px' }, ['JAMAZON'])
+  var $sort = createElement('div', { class: 'dropdown' }, [
+    createElement('button', { class: 'btn btn-secondary dropdown-toggle', type: 'button', id: 'dropdownMenuButton', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' }, ['Sort By Price:']),
+    createElement('div', { class: 'dropdown-menu', 'aria-labelledby': 'dropdownMenuButton' }, [
+      createElement('a', { id: 'Low-to-High', class: 'dropdown-item' }, ['Low-to-High']),
+      createElement('a', { id: 'High-to-Low', class: 'dropdown-item' }, ['High-to-Low']),
+      createElement('a', { id: 'No Sort', class: 'dropdown-item' }, ['No Sort'])
+    ])
+  ])
   var $container = createElement('div', { class: 'container' }, [])
   $container.appendChild($header)
+  $container.appendChild($sort)
   var $row = createElement('div', { class: 'row m-3', style: 'height: auto' }, [])
   for (var i = 0; i < gridElements.length; i++) {
     var $item = gridElements[i]
@@ -201,6 +236,7 @@ function renderItemDescription(item) {
                 createElement('h4', null, ['Brand: ' + item.brand]),
                 createElement('h4', null, ['Origin: ' + item.origin]),
                 createElement('h6', null, [item.description]),
+                createElement('p', null, [item.details]),
                 createElement('p', { class: 'card-text' }, ['$' + item.price]),
                 createElement('button', { id: 'add-to-cart', class: 'btn btn-dark' }, ['Add to Cart']),
                 createElement('button', { id: 'back', class: 'btn btn-dark m-2' }, ['Back'])
@@ -387,7 +423,12 @@ function renderApp(state) {
     $view.appendChild(renderConfirmation())
   }
   else {
-    $view.appendChild(renderGrid(state.catalog.items))
+    if (state.sort !== null) {
+      $view.appendChild(renderGrid(sort(state.catalog.items, state.sort)))
+    }
+    else {
+      $view.appendChild(renderGrid(state.catalog.items))
+    }
   }
   showView(state.view)
 }
