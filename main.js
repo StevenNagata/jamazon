@@ -96,6 +96,10 @@ document.querySelector('[data-view="catalog"]').addEventListener('click', functi
     appState.sort = 'High-to-Low'
     renderApp(appState)
   }
+  else if (event.target.id === 'No Sort') {
+    appState.sort = null
+    renderApp(appState)
+  }
   else if (event.target.id === 'Low-to-High') {
     appState.sort = 'Low-to-High'
     renderApp(appState)
@@ -164,7 +168,7 @@ document.querySelector('[data-view="confirmation"]').addEventListener('click', f
 
 function sort(unsorted, sortBy) {
   let sortedList = unsorted.slice(0)
-  sortedList = unsorted.sort(function (obj1, obj2) {
+  sortedList = sortedList.sort(function (obj1, obj2) {
     if (sortBy === 'Low-to-High') {
       return obj1.price - obj2.price
     }
@@ -200,7 +204,8 @@ function renderGrid(gridElements) {
     createElement('button', { class: 'btn btn-secondary dropdown-toggle', type: 'button', id: 'dropdownMenuButton', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' }, ['Sort By Price:']),
     createElement('div', { class: 'dropdown-menu', 'aria-labelledby': 'dropdownMenuButton' }, [
       createElement('a', { id: 'Low-to-High', class: 'dropdown-item' }, ['Low-to-High']),
-      createElement('a', { id: 'High-to-Low', class: 'dropdown-item' }, ['High-to-Low'])
+      createElement('a', { id: 'High-to-Low', class: 'dropdown-item' }, ['High-to-Low']),
+      createElement('a', { id: 'No Sort', class: 'dropdown-item' }, ['No Sort'])
     ])
   ])
   var $container = createElement('div', { class: 'container' }, [])
